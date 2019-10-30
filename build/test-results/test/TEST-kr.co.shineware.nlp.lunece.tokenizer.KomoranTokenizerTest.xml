@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="kr.co.shineware.nlp.lunece.tokenizer.KomoranTokenizerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-10-30T15:48:36" hostname="DESKTOP-PFTIASU" time="0.001">
+  <properties/>
+  <testcase name="incrementToken" classname="kr.co.shineware.nlp.lunece.tokenizer.KomoranTokenizerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

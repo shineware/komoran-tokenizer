@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'shineware'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '8.2.0'
+    testCompile group: 'org.apache.lucene', name: 'lucene-test-framework', version: '8.2.0'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.4.1'
+    implementation 'com.github.shin285:KOMORAN:3.3.4'
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
