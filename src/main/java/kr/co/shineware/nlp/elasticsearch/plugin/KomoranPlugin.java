@@ -8,14 +8,13 @@ import org.elasticsearch.plugins.Plugin;
 
 import java.util.Map;
 
-import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
 
 public class KomoranPlugin extends Plugin implements AnalysisPlugin {
 
     @Override
     public Map<String, AnalysisModule.AnalysisProvider<TokenizerFactory>> getTokenizers() {
-        return singletonMap("komoran_tokenizer", KomoranTokenizerFactory::new);
+        return singletonMap("komoran-tokenizer", KomoranTokenizerFactory::new);
     }
 
 }
