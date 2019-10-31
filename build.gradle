@@ -10,15 +10,53 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-
 }
+
+configurations {
+    includeCompile
+}
+
+project.ext {
+    elist = new HashSet<File>()
+}
+
+jar {
+    from {
+        println(configurations.includeCompile.files)
+        configurations.includeCompile.collect {
+            println("contains : "+it.toString())
+            if (it.isDirectory()) {
+                return it
+            } else {
+                println("original size : "+it.size())
+                if (!project.elist.contains(it)){
+                    zipTree(it)
+                }
+            }
+//            it.isDirectory() ? it : zipTree(it)
+            if (!project.elist.contains(it)) {
+                println("zipTree : "+it.size())
+//                zipTree(it)
+            } else {
+                println("skip : "+it.size())
+            }
+            project.elist.add(it)
+        }
+        println(project.elist)
+        println("Done")
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+}
+
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '8.2.0'
     testCompile group: 'org.apache.lucene', name: 'lucene-test-framework', version: '8.2.0'
     compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.4.1'
-    implementation 'com.github.shin285:KOMORAN:3.3.4'
+//    compile 'com.github.shin285:KOMORAN:3.3.4'
+    includeCompile 'com.github.shin285:KOMORAN:85d3f684'
+    configurations.compile.extendsFrom(configurations.includeCompile)
 }
 
 compileJava.options.encoding = "UTF-8"
