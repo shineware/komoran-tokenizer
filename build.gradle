@@ -22,28 +22,19 @@ project.ext {
 
 jar {
     from {
-        println(configurations.includeCompile.files)
         configurations.includeCompile.collect {
-            println("contains : "+it.toString())
+            println("contains : " + it.toString())
+//            it.isDirectory() ? it : zipTree(it)
             if (it.isDirectory()) {
                 return it
             } else {
-                println("original size : "+it.size())
-                if (!project.elist.contains(it)){
-                    zipTree(it)
+                if (!project.elist.contains(it)) {
+                    project.elist.add(it)
+                    return zipTree(it)
                 }
+                return it
             }
-//            it.isDirectory() ? it : zipTree(it)
-            if (!project.elist.contains(it)) {
-                println("zipTree : "+it.size())
-//                zipTree(it)
-            } else {
-                println("skip : "+it.size())
-            }
-            project.elist.add(it)
         }
-        println(project.elist)
-        println("Done")
     }
     exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
 }
@@ -54,8 +45,7 @@ dependencies {
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '8.2.0'
     testCompile group: 'org.apache.lucene', name: 'lucene-test-framework', version: '8.2.0'
     compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.4.1'
-//    compile 'com.github.shin285:KOMORAN:3.3.4'
-    includeCompile 'com.github.shin285:KOMORAN:85d3f684'
+    includeCompile 'com.github.shin285:KOMORAN:3.3.7'
     configurations.compile.extendsFrom(configurations.includeCompile)
 }
 
