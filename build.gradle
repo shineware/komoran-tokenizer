@@ -16,27 +16,59 @@ configurations {
     includeCompile
 }
 
+ext {
+    komoranVersion = '3.3.7'
+}
+
 project.ext {
     elist = new HashSet<File>()
 }
 
-jar {
+//jar {
+//    from {
+//        configurations.includeCompile.collect {
+//            println("contains : " + it.toString())
+////            it.isDirectory() ? it : zipTree(it)
+//            if (it.isDirectory()) {
+//                return it
+//            } else {
+//                if (!project.elist.contains(it)) {
+//                    project.elist.add(it)
+//                    return zipTree(it)
+//                }
+//                return it
+//            }
+//        }
+//    }
+//    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+//}
+
+task makePlugin(type: Zip) {
+    dependsOn(":build")
     from {
         configurations.includeCompile.collect {
-            println("contains : " + it.toString())
-//            it.isDirectory() ? it : zipTree(it)
             if (it.isDirectory()) {
                 return it
             } else {
                 if (!project.elist.contains(it)) {
                     project.elist.add(it)
-                    return zipTree(it)
+                    if (it.name == "KOMORAN-$komoranVersion" + ".jar") {
+                        include it.name
+                    }
                 }
                 return it
             }
         }
     }
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+
+    from("build/libs/") {
+        include "*"
+    }
+    from("src/main/resources/") {
+        include "*"
+    }
+    archiveName('komoran-tokenizer.zip')
+    destinationDir(file('.'))
 }
 
 
@@ -45,7 +77,7 @@ dependencies {
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '8.2.0'
     testCompile group: 'org.apache.lucene', name: 'lucene-test-framework', version: '8.2.0'
     compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.4.1'
-    includeCompile 'com.github.shin285:KOMORAN:3.3.7'
+    includeCompile "com.github.shin285:KOMORAN:$komoranVersion"
     configurations.compile.extendsFrom(configurations.includeCompile)
 }
 
