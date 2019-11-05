@@ -47,6 +47,7 @@ public class KomoranTokenizer extends Tokenizer {
             return true;
         }
         tokenIterator = null;
+        buffer = null;
         return false;
     }
 
@@ -74,6 +75,7 @@ public class KomoranTokenizer extends Tokenizer {
     public void reset() throws IOException {
         super.reset();
         tokenIterator = null;
+        buffer = null;
     }
 
     @Override
