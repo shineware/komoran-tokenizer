@@ -1,0 +1,61 @@
+=============== Indexer setting =======================
+PUT : localhost:9200/news
+JSON :
+{
+    "settings": {
+        "index": {
+            "analysis": {
+                "tokenizer": {
+                    "komoran": {
+                        "type": "komoran-tokenizer"
+                    }
+                },
+                "analyzer": {
+                    "komoran-analyzer": {
+                        "type": "custom",
+                        "tokenizer": "komoran"
+                    }
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "title": {
+                "type": "text",
+                "analyzer" : "komoran-analyzer",
+                "search_analyzer" : "komoran-analyzer"
+            },
+            "body": {
+                "type": "text",
+                "analyzer" : "komoran-analyzer",
+                "search_analyzer" : "komoran-analyzer"
+            }
+        }
+    }
+}
+
+============== Indexing document ================
+PUT : localhost:9200/news/_doc/1
+JSON :
+{
+	"title" : "코모란이 드디어 elasticsearch 플러그인을 지원하다!",
+	"body" : "바람과 함께 사라지다를 봤다는 이 것을 드디어 색인이 가능합니다!"
+}
+
+============== Searching document ====================
+GET : localhost:9200/news2/_search
+JSON :
+{
+    "query": {
+        "multi_match": {
+            "operator": "and",
+            "type" : "cross_fields",
+            "query": "코모란 바람과 함께 사라지다",
+            "fields": [
+                "body",
+                "title"
+            ]
+        }
+    }
+}

@@ -22,6 +22,7 @@ public class KomoranTokenizer extends Tokenizer {
     private final PositionIncrementAttribute positionIncrementAttribute = addAttribute(PositionIncrementAttribute.class);
     private final OffsetAttribute offsetAttribute = addAttribute(OffsetAttribute.class);
     private final TypeAttribute typeAttribute = addAttribute(TypeAttribute.class);
+    private int lastOffset;
 
     public KomoranTokenizer(Komoran komoran) {
         this.komoran = komoran;
@@ -46,6 +47,7 @@ public class KomoranTokenizer extends Tokenizer {
             this.typeAttribute.setType(token.getPos());
             return true;
         }
+        lastOffset = buffer.length();
         tokenIterator = null;
         buffer = null;
         return false;
@@ -68,7 +70,7 @@ public class KomoranTokenizer extends Tokenizer {
     @Override
     public void end() throws IOException {
         super.end();
-        offsetAttribute.setOffset(correctOffset(buffer.length()), correctOffset(buffer.length()));
+        offsetAttribute.setOffset(correctOffset(lastOffset), correctOffset(lastOffset));
     }
 
     @Override
