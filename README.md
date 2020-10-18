@@ -1,3 +1,8 @@
+# komoran 통합 안내
+현재 본 repository는 KOMORAN repository에 통합되었습니다.  
+아래 링크에서 확인 가능합니다.  
+https://github.com/shineware/KOMORAN/tree/master/elasticsearch-plugin
+
 # komoran-tokenizer
 komoran for elasticsearch
 
