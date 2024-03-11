@@ -27,4 +27,10 @@ public class TokenizerRunTest {
         tokenStream.close();
 
     }
+
+    @Test
+    public void komoranTest(){
+        Komoran komoran = new Komoran(DEFAULT_MODEL.LIGHT);
+        System.out.println(komoran.analyze("").getTokenList());
+    }
 }

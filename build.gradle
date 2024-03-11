@@ -17,7 +17,7 @@ configurations {
 }
 
 ext {
-    komoranVersion = '3.3.7'
+    komoranVersion = '3.3.9'
 }
 
 project.ext {
@@ -74,9 +74,9 @@ task makePlugin(type: Zip) {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '8.2.0'
-    testCompile group: 'org.apache.lucene', name: 'lucene-test-framework', version: '8.2.0'
-    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.4.1'
+    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '8.4.0'
+    testCompile group: 'org.apache.lucene', name: 'lucene-test-framework', version: '8.4.0'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.6.2'
     includeCompile "com.github.shin285:KOMORAN:$komoranVersion"
     configurations.compile.extendsFrom(configurations.includeCompile)
 }

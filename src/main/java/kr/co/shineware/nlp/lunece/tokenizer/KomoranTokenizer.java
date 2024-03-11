@@ -55,15 +55,24 @@ public class KomoranTokenizer extends Tokenizer {
 
     private void analyze() {
         if (tokenIterator == null) {
+            System.out.println("Analysis buffer : ["+buffer+"]");
             tokenIterator = komoran.analyze(buffer).getTokenList().iterator();
         }
     }
 
     private void setupInputBuffer() throws IOException {
         if (tokenIterator == null) {
-            BufferedReader br = new BufferedReader(input);
-            buffer = br.readLine();
-            br.close();
+            System.out.println("Read from input reader");
+            int intValueOfChar;
+            buffer = "";
+            while ((intValueOfChar = input.read()) != -1) {
+                System.out.println((char) intValueOfChar);
+                buffer += (char) intValueOfChar;
+            }
+//            BufferedReader br = new BufferedReader(input);
+//            buffer = br.readLine();
+//            br.close();
+            System.out.println("["+buffer+"]");
         }
     }
 
